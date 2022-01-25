@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="report_print"
+            string="POS Receipt"
+            model="account.invoice"
+            report_type="qweb-pdf"
+            name="pos_receipt.report_pos_receipt"
+            file="pos_receipt.report_pos_receipt"
+    />
+</odoo>

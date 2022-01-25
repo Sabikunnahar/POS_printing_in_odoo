@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_pos_receipt">
+        <t t-call="report.internal_layout">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <div>
+                            <h4 style="text-align:center;">
+                                Sajida Hospital
+                            </h4>
+                        </div>
+
+                        <div>
+                            Invoice:
+                            <t t-esc="o.number"/>
+                            Date:
+                            <t t-esc="o.date_invoice"/>
+                            <br/>
+                            Customer name:
+                            <t t-esc="o.partner_id.name"/>[<t t-esc="o.partner_id.ref"/>]
+                            <br/>
+                            Salesperson:
+                            <t t-esc="o.user_id.name"/>
+                            <br></br>
+                            Store:
+                            <t t-esc="o.shop_id.name"/>
+                        </div>
+                        <table class="table table-striped" style="border-collapse: collapse;">
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Unit Price</th>
+                                <th>Amount</th>
+                            </tr>
+                            <tr t-foreach="o.invoice_line_ids" t-as="l">
+                                <td class="col-xs-2" style="width:100000px;">
+                                    <span t-field="l.product_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.quantity"/>
+                                </td>
+                                <td>
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'%.2f'%(l.price_unit*l.quantity)"/>
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                            Amount:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                            <t t-esc="'%.2f'%(o.amount_untaxed)"/>
+                            <br/>
+                            Discount Percentage:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]><t
+                                t-esc="'%.0f'%(o.discount_percentage)"/>%
+                            <br/>
+                            Discount:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                            <t t-esc="'%.2f'%(o.discount)"/>
+                            <br/>
+                            <h4>
+                                <strong>Amount to be paid:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                    <t t-esc="'%.2f'%(o.amount_total)"/>
+                                </strong>
+                                <br/>
+                                <strong>Paid:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                    <t t-esc="'%.2f'%(o.amount_total-o.residual)"/>
+                                </strong>
+                                <br/>
+                                <strong>Amount Due:<![CDATA[&nbsp;]]><![CDATA[&nbsp;]]>
+                                    <t t-esc="'%.2f'%(o.residual)"/>
+                                </strong>
+                                <br/>
+                            </h4>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
